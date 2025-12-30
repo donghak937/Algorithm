@@ -15,21 +15,30 @@
 가장 대표적인 그리디 예제입니다. 500원, 100원, 50원, 10원짜리 동전이 있을 때, 손님에게 거슬러 줘야 할 돈 `n`원을 **최소 개수의 동전**으로 거슬러 주는 방법입니다.
 *단, 동전의 큰 단위가 작은 단위의 배수여야만 그리디가 성립합니다. (예: 500은 100의 배수)*
 
-```python
-def min_coin_change(chang):
-    # 큰 단위의 화폐부터 차례대로 확인
-    coins = [500, 100, 50, 10]
-    count = 0
-    
-    for coin in coins:
-        # 해당 화폐로 거슬러 줄 수 있는 동전의 개수 세기
-        count += change // coin
-        change %= coin # 남은 거스름돈 갱신
-        
-    return count
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
 
-n = 1260
-print(min_coin_change(n))
+int min_coin_change(int change) {
+    // 큰 단위의 화폐부터 차례대로 확인
+    int coins[] = {500, 100, 50, 10};
+    int count = 0;
+    
+    for (int coin : coins) {
+        // 해당 화폐로 거슬러 줄 수 있는 동전의 개수 세기
+        count += change / coin;
+        change %= coin; // 남은 거스름돈 갱신
+    }
+    
+    return count;
+}
+
+int main() {
+    int n = 1260;
+    cout << min_coin_change(n) << endl;
+    return 0;
+}
 ```
 **실행 결과:**
 `1260원`을 거슬러 줄 때: 500원 2개, 100원 2개, 50원 1개, 10원 1개 → 총 6개

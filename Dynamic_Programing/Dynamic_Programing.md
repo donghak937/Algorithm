@@ -10,16 +10,25 @@
 - **Top-down (Memoization):** 재귀를 이용하며, 계산된 결과를 메모리에 저장(Memo)하여 중복 계산을 방지합니다.
 - **Bottom-up (Tabulation):** 반복문을 이용하며, 작은 문제부터 차례대로 해결하여 테이블을 채워 나갑니다.
 
-### 3. 예시: 피보나치 수열 (Python)
-```python
-# Bottom-up 방식
-def fibonacci(n):
-    if n <= 1: return n
-    dp = [0] * (n + 1)
-    dp[1] = 1
-    for i in range(2, n + 1):
-        dp[i] = dp[i-1] + dp[i-2]
-    return dp[n]
+### 3. 예시: 피보나치 수열 (C++)
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Bottom-up 방식
+long long fibonacci(int n) {
+    if (n <= 1) return n;
+    
+    // n이 클 수 있으므로 long long 사용 추천
+    vector<long long> dp(n + 1);
+    dp[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
 ```
 
 ### 4. 2차원 동적 계획법 (2D Dynamic Programming)
@@ -33,29 +42,41 @@ def fibonacci(n):
 - `dp[i][j]`: (0,0)에서 (i,j)까지의 최소 합
 - 현재 칸의 값(`grid[i][j]`)에 위쪽(`dp[i-1][j]`)이나 왼쪽(`dp[i][j-1]`) 중 더 작은 값을 더합니다.
 
-```python
-def min_path_sum(grid):
-    rows = len(grid)
-    cols = len(grid[0])
+```cpp
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int minPathSum(vector<vector<int>>& grid) {
+    if (grid.empty()) return 0;
     
-    # 2차원 DP 테이블 초기화
-    dp = [[0] * cols for _ in range(rows)]
+    int rows = grid.size();
+    int cols = grid[0].size();
     
-    dp[0][0] = grid[0][0]
+    // 2차원 DP 테이블 초기화
+    vector<vector<int>> dp(rows, vector<int>(cols));
     
-    # 첫 번째 열 초기화 (위에서만 올 수 있음)
-    for i in range(1, rows):
-        dp[i][0] = dp[i-1][0] + grid[i][0]
+    dp[0][0] = grid[0][0];
+    
+    // 첫 번째 열 초기화 (위에서만 올 수 있음)
+    for (int i = 1; i < rows; i++) {
+        dp[i][0] = dp[i-1][0] + grid[i][0];
+    }
         
-    # 첫 번째 행 초기화 (왼쪽에서만 올 수 있음)
-    for j in range(1, cols):
-        dp[0][j] = dp[0][j-1] + grid[0][j]
+    // 첫 번째 행 초기화 (왼쪽에서만 올 수 있음)
+    for (int j = 1; j < cols; j++) {
+        dp[0][j] = dp[0][j-1] + grid[0][j];
+    }
         
-    # 나머지 칸 채우기
-    for i in range(1, rows):
-        for j in range(1, cols):
-            dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])
+    // 나머지 칸 채우기
+    for (int i = 1; i < rows; i++) {
+        for (int j = 1; j < cols; j++) {
+            dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1]);
+        }
+    }
             
-    return dp[rows-1][cols-1]
+    return dp[rows-1][cols-1];
+}
 ```
     
