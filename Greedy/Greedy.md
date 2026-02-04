@@ -28,7 +28,7 @@ int min_coin_change(int change) {
     for (int coin : coins) {
         // 해당 화폐로 거슬러 줄 수 있는 동전의 개수 세기
         count += change / coin;
-        change %= coin; // 남은 거스름돈 갱신
+        change %= coin; // 남은 거스름돈 갱신 
     }
     
     return count;
