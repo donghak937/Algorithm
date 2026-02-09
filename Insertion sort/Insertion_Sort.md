@@ -39,9 +39,8 @@ void insertionSort(vector<int>& arr) {
         // 찾은 위치(j의 다음 위치)에 key를 삽입합니다.
         arr[j + 1] = key;
     }
-    
 }
-
+ 
 int main() {
     vector<int> arr = {64, 25, 12, 22, 11};
     
