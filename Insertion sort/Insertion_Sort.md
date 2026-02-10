@@ -40,7 +40,7 @@ void insertionSort(vector<int>& arr) {
         arr[j + 1] = key;
     }
 }
- 
+
 int main() {
     vector<int> arr = {64, 25, 12, 22, 11};
     
